@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 name="desktop-file-utils"
-version="0.28"
+version="0.27"
 description="Command line utilities for working with desktop entries"
-source="https://gitlab.freedesktop.org/xdg/desktop-file-utils/-/archive/${version}/desktop-file-utils-${version}.tar.gz"
+source="https://www.freedesktop.org/software/desktop-file-utils/releases/desktop-file-utils-${version}.tar.xz"
 depends="glib"
 builddepend="git,meson"
 group="dev.util"
 
 
 setup(){
-	cp -prvf $PACKAGEDIR/desktop-file-utils.sysconf /tmp/bps/build/
 	cd $SOURCEDIR
     meson setup $BUILDDIR --prefix=/usr \
         --libdir=/usr/lib64/
@@ -21,6 +20,4 @@ build(){
 
 package(){
     DESTDIR=$DESTDIR ninja -C $BUILDDIR install
-    mkdir -p ${DESTDIR}/etc/sysconf.d/
-    install ../desktop-file-utils.sysconf ${DESTDIR}/etc/sysconf.d/desktop-file-utils
 }
